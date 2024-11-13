@@ -5,12 +5,12 @@
 /// File creation date: 13 October 2024
 /// File creator: Joshua Petrin
 
-import QuizzerGUI from './quizzer_gui';
+import Quizzer from './quizzer/quizzer';
 
 import React from 'react';
 
-const SubjectFrame = ({}) => {
-    return <div>
-        <QuizzerGUI />
-    </div>
+const SubjectFrame = () => {
+    return <Quizzer />
 }
+
+export default SubjectFrame;

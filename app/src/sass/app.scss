@@ -1,12 +1,38 @@
-/* -*- encoding: utf-8 -*- */
-/*
- * (c) Joshua Petrin, 2024. All rights reserved.
- *
- * File creation date: 13 October 2024
- * File creator: Joshua Petrin
- */
+// -*- encoding: utf-8 -*-
+//
+// (c) Joshua Petrin 2024. All rights reserved.
+//
+// File creation date: 13 November 2024
+// File creator: Joshua Petrin
 
-@use "bulma/sass/base";
+
+@use "bulma/sass/base" with (
+    $body-background-color: #6fbe87,
+    $body-family: Montserrat,
+);
+
 @use "bulma/sass/themes";
 
-@use "bulma/sass/components/navbar"
+@use "bulma/sass/components/navbar" with (
+    $navbar-background-color: #306550,
+    $navbar-item-color: #ffffff,
+);
+
+.quizzer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 3rem;
+}
+
+.quizzer .text {
+    background-color: white;
+    font-family: "Noto Serif", Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    color: black;
+}
+
+.quizzer .sidebar {
+    width: 30%;
+    background-color: #c9b58d;
+}

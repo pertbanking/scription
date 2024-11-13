@@ -12,8 +12,15 @@ const NavBar = ({logo, text}) => {
     return (
         <div className="navbar" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
-                <img width={300} height={300} src={logo} />
-                <span className="main bar content">{text}</span>
+                <img width={100} height={100} src={logo} alt="img" />
+            </div>
+            <div className="navbar-menu">
+                <div className="navbar-start">
+                    <span className="navbar-item">Home</span>
+                    <span className="navbar-item">{text}</span>
+                </div>
+                <div className="navbar-end">
+                </div>
             </div>
         </div>
     );
