@@ -11,8 +11,8 @@ import QuizText from './quiz_text';
 import QuizSidebar from './quiz_sidebar';
 
 const Quizzer = ({reference}) => {
-    return <div className="quizzer">
-        <QuizText title={reference}>
+    const text = (
+        <>
             <p>In the beginning was the Word, and the Word was with God, and the
             Word was God. <em className='incorrect'>He was in the</em> beginning
             with God. All things were made through him, and without him was not
@@ -41,9 +41,16 @@ const Quizzer = ({reference}) => {
             upon grace. For the law was given through Moses; grace and truth
             came through Jesus Christ. No one has ever seen God; the only God,
             who is at the Father's side, he has made him known.</p>
+        </>);
+
+    // console.log(text);
+
+    return (<div className="quizzer">
+        <QuizText title={reference}>
+            {text}
         </QuizText>
         <QuizSidebar />
-    </div>
+    </div>);
 }
 
 export default Quizzer;

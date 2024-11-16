@@ -25,7 +25,8 @@
 }
 
 .quizzer .text {
-
+    flex: 2 1 0;
+    order: 0;
     background-color: white;
     font-family: "Noto Serif", Arial, Helvetica, sans-serif;
     font-size: 1.5rem;
@@ -33,6 +34,18 @@
 }
 
 .quizzer .sidebar {
-    width: 30%;
+    flex: 1 1 0;
+    order: 5;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 50vw;
     background-color: #c9b58d;
+}
+
+.quizzer .sidebar .drawer {
+    flex: 1 0 auto;
+    background-color: white;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    width: 100%;
 }

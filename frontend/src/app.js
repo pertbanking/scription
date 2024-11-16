@@ -5,17 +5,22 @@
 // File creation date: 14 October 2024
 // File creator: Joshua Petrin
 
-// import DropdownMenu from './elements/dropdown'
+'use strict';
+
+// import * as BibleParser from './bible_parser';
+
 import NavBar from './components/nav_bar'
 import SubjectFrame from './components/index'
-import logo from './logo-750.png';
+import logo from './images/logo-circled-248.png';
 
 function App() {
+
+
   return (
-    <div>
+    <>
       <NavBar logo={logo} text="John 1:1-18" />
       <SubjectFrame />
-    </div>
+    </>
   );
 }
 
