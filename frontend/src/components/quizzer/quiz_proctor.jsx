@@ -5,14 +5,10 @@
 // File creation date: 15 November 2024
 // File creator: Joshua Petrin
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const trimText = text => {
-    
-};
+const trimText = (text) => {};
 
-const QuizProctor = ({text}) => {
-
-};
+const QuizProctor = ({ text }) => {};
 
 export default QuizProctor;

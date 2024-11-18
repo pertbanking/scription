@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const DropdownMenu = () => {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelectOption = (event) => {
     setSelectedOption(event.target.value);
@@ -16,12 +16,9 @@ const DropdownMenu = () => {
         <option value="option2">Option 2</option>
         <option value="option3">Option 3</option>
       </select>
-      {selectedOption && (
-        <p>You selected: {selectedOption}</p>
-      )}
+      {selectedOption && <p>You selected: {selectedOption}</p>}
     </div>
   );
 };
 
 export default DropdownMenu;
-

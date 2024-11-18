@@ -5,12 +5,12 @@
 /// File creation date: 13 October 2024
 /// File creator: Joshua Petrin
 
-import Quizzer from './quizzer/quizzer';
+import Quizzer from "./quizzer/quizzer";
 
-import React from 'react';
+import React from "react";
 
 const SubjectFrame = () => {
-    return <Quizzer />
-}
+  return <Quizzer />;
+};
 
 export default SubjectFrame;
