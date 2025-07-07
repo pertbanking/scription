@@ -5,46 +5,43 @@
 // File creation date: 13 November 2024
 // File creator: Joshua Petrin
 
-@use "bulma/sass/base" with (
-  $body-background-color: #6fbe87,
-  $body-family: Montserrat
-);
-
-@use "bulma/sass/themes";
-
-@use "bulma/sass/components/navbar" with (
+@use "bulma/sass" with (
   $navbar-background-color: #306550,
-  $navbar-item-color: #ffffff
+  $navbar-item-color: #ffffff,
+  $body-background-color: #6fbe87,
+  $body-family: Montserrat,
+  $danger: #ff1111,
+  $success: #1111dd
 );
 
-.quizzer {
-  display: flex;
-  flex-flow: row nowrap;
-  padding: 3rem;
-}
+// .quizzer {
+//   display: flex;
+//   flex-flow: row nowrap;
+//   padding: 3rem;
+// }
 
-.quizzer .text {
-  flex: 2 1 0;
-  order: 0;
-  background-color: white;
-  font-family: "Noto Serif", Arial, Helvetica, sans-serif;
-  font-size: 1.5rem;
-  color: black;
-}
+// .quizzer .text {
+//   flex: 2 1 0;
+//   order: 0;
+//   background-color: white;
+//   font-family: "Noto Serif", Arial, Helvetica, sans-serif;
+//   font-size: 1.5rem;
+//   color: black;
+// }
 
-.quizzer .sidebar {
-  flex: 1 1 0;
-  order: 5;
-  display: flex;
-  flex-flow: column nowrap;
-  width: 50vw;
-  background-color: #c9b58d;
-}
+// .quizzer .sidebar {
+//   flex: 1 1 0;
+//   order: 5;
+//   display: flex;
+//   flex-flow: column nowrap;
+//   width: 50vw;
+//   background-color: #c9b58d;
+// }
 
-.quizzer .sidebar .drawer {
-  flex: 1 0 auto;
-  background-color: white;
-  margin-bottom: 2rem;
-  border-radius: 1rem;
-  width: 100%;
-}
+// .quizzer .sidebar .drawer {
+//   flex: 1 0 auto;
+//   background-color: white;
+//   margin-bottom: 2rem;
+//   border-radius: 1rem;
+//   width: 100%;
+// }

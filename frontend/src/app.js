@@ -5,20 +5,17 @@
 // File creation date: 14 October 2024
 // File creator: Joshua Petrin
 
-"use strict";
+import { Provider } from "react-redux";
 
-// import * as BibleParser from './bible_parser';
-
-import NavBar from "./components/nav_bar";
-import SubjectFrame from "./components/index";
+import Scription from "./components/index";
+import store from "./state/game_state";
 import logo from "./images/logo-circled-248.png";
 
 function App() {
   return (
-    <>
-      <NavBar logo={logo} text="John 1:1-18" />
-      <SubjectFrame />
-    </>
+    <Provider store={store}>
+      <Scription />
+    </Provider>
   );
 }
 

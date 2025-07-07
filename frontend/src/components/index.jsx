@@ -7,10 +7,8 @@
 
 import Quizzer from "./quizzer/quizzer";
 
-import React from "react";
-
-const SubjectFrame = () => {
+const Scription = () => {
   return <Quizzer />;
 };
 
-export default SubjectFrame;
+export default Scription;

@@ -5,57 +5,77 @@
 /// File creation date: 13 October 2024
 /// File creator: Joshua Petrin
 
-import React from "react";
-
+import { useSelector, useDispatch } from "react-redux";
+import { appendUserInputEntry } from "../../state/game_state";
 import QuizText from "./quiz_text";
-import QuizSidebar from "./quiz_sidebar";
+// import QuizSidebar from "./quiz_sidebar";
 
-const Quizzer = ({ reference }) => {
-  const text = (
-    <>
-      <p>
-        In the beginning was the Word, and the Word was with God, and the Word
-        was God. <em className="incorrect">He was in the</em> beginning with
-        God. All things were made through him, and without him was not any thing
-        made that was made. In him was life, and the life was the light of men.
-        The light shines in the darkness, and the darkness has not overcome it.
-      </p>
+const Quizzer = () => {
+  const passageRef = useSelector((state) => state.passage.reference);
+  const passageText = useSelector((state) => state.passage.text);
+  const userInputIndex = useSelector((state) => state.userInput.index);
+  const userInputs = useSelector((state) => state.userInput.entries);
 
-      <p>
-        There was a man sent from God, whose name was John. He came as a
-        witness, to bear witness about the light, that all might believe through
-        him. He was not the light, but came to bear witness about the light.
-      </p>
+  const dispatch = useDispatch();
 
-      <p>
-        The true light, which gives light to everyone, was coming into the
-        world. He was in the world, and the world was made through him, yet the
-        world did not know him. He came to his own, and his own people did not
-        receive him. But to all who did receive him, who believed in his name,
-        he gave the right to become children of God, who were born, not of blood
-        nor of the will of the flesh nor of the will of man, but of God.
-      </p>
+  const doInput = (e) => {
+    dispatch(
+      appendUserInputEntry({ index: userInputIndex, value: e.target.value[0] }),
+    );
+    e.target.value = "";
+  };
 
-      <p>
-        And the Word became flesh and dwelt among us, and we have seen his
-        glory, glory as of the only Son from the Father, full of grace and
-        truth. (John bore witness about him, and cried out, "This was he of whom
-        I said, 'He who comes after me ranks before me, because he was before
-        me.'") For from his fullness we have all received, grace upon grace. For
-        the law was given through Moses; grace and truth came through Jesus
-        Christ. No one has ever seen God; the only God, who is at the Father's
-        side, he has made him known.
-      </p>
-    </>
-  );
-
-  // console.log(text);
+  // const getLetterFeedback = () => {
+  //   return expectedInput.split("").map((char, i) => {
+  //     let className = "has-text-grey-light";
+  //     if (userInputToken) {
+  //       className =
+  //         userInputToken === char ? "has-text-success" : "has-text-danger has-text-weight-bold";
+  //     }
+  //     return (
+  //       <span key={i} className={className}>
+  //         {userInputToken || "_"}
+  //       </span>
+  //     );
+  //   });
+  // };
 
   return (
-    <div className="quizzer">
-      <QuizText title={reference}>{text}</QuizText>
-      <QuizSidebar />
-    </div>
+    <>
+      <div className="section">
+        <div className="container">
+          <h1 className="title is-3">Scripture Memory Game</h1>
+
+          <div className="box">
+            <p className="has-text-grey">Reference:</p>
+            <p className="subtitle is-5">{passageRef}</p>
+          </div>
+
+          <div className="field">
+            <div className="control">
+              <input
+                type="text"
+                className="input"
+                placeholder="Type the first letter of each word..."
+                onChange={doInput}
+              />
+            </div>
+          </div>
+
+          <QuizText text={passageText} userGuesses={userInputs} />
+
+          {/* <div className="buttons mt-4">
+            <button
+              className="button is-info"
+              onClick={() => dispatch({ type: "SET_INPUT_INDEX", payload: userInputIndex + 1 })}
+            >
+              Next Attempt
+            </button>
+          </div> */}
+        </div>
+      </div>
+      {/* <QuizSidebar /> */}
+    </>
   );
 };
 
