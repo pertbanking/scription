@@ -2,16 +2,17 @@
 
 A tool for memorizing large, connected portions of the Bible.
 
-## Statement of Purpose
+_"For the earth shall be full of the knowledge of the Lord as the waters cover
+the sea."_ -- Isaiah 11:9
 
-I am developing Scription because I believe that effective Bible memory tools
-should be readily available to everyone with access to the internet through
-their phone or computer. If the internet offers an enticing connection to
-social media and news outlets, it should also offer an enticing connection to
-the eternal book.
+## Purpose
 
-To my knowledge, there are several good Bible memory tools that exist for free
-already:
+I am developing Scription because effective Bible memory tools should be
+readily available to everyone with access to the internet through their phone
+or computer. If the internet offers an enticing connection to social media and
+news outlets, it should also offer an enticing connection to the eternal book.
+
+There are several good Bible memory tools that exist for free already:
 
 - [Bible Memory App](https://biblememory.com/) (This is the one I currently use)
 - [LearnScripture](https://learnscripture.net)
@@ -36,11 +37,13 @@ an entire epistle, an entire gospel account, or an entire phophetic work.
 ### App interface (smartphone)
 
 - [ ] Design a UI for the Quizzer interface
-- [ ] Prototype the Quizzer interface with Swift or whatever
+- [ ] Prototype the Quizzer interface with Swift, or something
 
 ### Database
 
-- [ ] Manage a user, progress, review cadence
+- [ ] Create a Bible database and API that offers pertinent footnotes and
+      cross-references
+- [ ] Manage a user's progress and review cadence
 
 ### Metrics
 
