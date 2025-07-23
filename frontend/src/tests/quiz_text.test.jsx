@@ -30,4 +30,9 @@ test("only render guessed words", () => {
   expect(linkElement).toBeNull();
 });
 
-test.todo("find a way to add in annotations and verse numbers");
+test("render verse numbers", () => {
+  let text = "{2} He was in the beginning with God";
+  render(<QuizText text={text} userGuesses={"hw"} />);
+  const linkElement = screen.getByText("2");
+  expect(linkElement).toBeInTheDocument();
+});

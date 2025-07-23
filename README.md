@@ -33,7 +33,7 @@ an entire epistle, an entire gospel account, or an entire phophetic work.
   - [Link](https://www.figma.com/design/qvPXbQFnV2mag5et4dnTzd/Quizzer-Widget?node-id=1-2&t=t2NajdrQKOWVT3rz-1)
 - [ ] Prototype the Quizzer interface with React + JS
 
-### App interface
+### App interface (smartphone)
 
 - [ ] Design a UI for the Quizzer interface
 - [ ] Prototype the Quizzer interface with Swift or whatever
@@ -46,3 +46,4 @@ an entire epistle, an entire gospel account, or an entire phophetic work.
 
 - [ ] Research the forms of memorization, factor it into the design
 - [ ] Design the accuracy system
+- [ ] Design the review system

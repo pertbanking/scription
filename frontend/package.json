@@ -21,7 +21,7 @@
     "start": "npm-run-all -p start-react watch-css",
     "start-react": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --detectOpenHandles",
     "eject": "react-scripts eject",
     "build-css": "sass --load-path=node_modules src/sass:src/css",
     "watch-css": "npm run build-css && sass --watch --load-path=node_modules src/sass:src/css",
