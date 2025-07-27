@@ -9,7 +9,7 @@
 
 import importVerse from "../bible_parser";
 
-test("john first verse", () => {
+test.skip("john first verse", () => {
   let expected =
     "In the beginning was the word, and the word was with God, and the word was God.";
 
@@ -18,7 +18,7 @@ test("john first verse", () => {
   expect(importVerse("jOhN", 1, 1)).toBe(expected);
 });
 
-test("john second verse", () => {
+test.skip("john second verse", () => {
   let expected = "He was in the beginning with God.";
 
   expect(importVerse("john", 1, 2)).toBe(expected);

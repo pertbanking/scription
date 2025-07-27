@@ -4,7 +4,7 @@ const passageSlice = createSlice({
   name: "passage",
   initialState: {
     reference: "John 1:1",
-    text: "In the beginning was the Word, and the Word was with God, and the Word was God.",
+    text: "{1} In the beginning was the Word, and the Word was with God, and the Word was God. {2} He was in the beginning with God.",
   },
   reducers: {
     setPassage: (state, action) => {

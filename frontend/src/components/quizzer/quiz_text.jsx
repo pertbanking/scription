@@ -11,99 +11,85 @@ const RenderedWord = ({word, prefix, postfix, className}) => {
       {prefix? <sup>{prefix}</sup> : ""}
       <span className={className}>{word}</span>
       {postfix? <sup>{postfix}</sup> : ""}
+      <span> </span>
     </>);
 }
 
-const makeRenderedWords = (text, answerKey) => {
-  const getNextSplit = (currIdx) => {
-    // filter the first spaces
-    while (text[currIdx] === ' ') {
-      currIdx++;
-    }
+class WordComponent {
+  constructor(prefix, word, trailingPunctuation, postfix) {
+    this.prefix = prefix;
+    this.word = word;
+    this.trailingPunctuation = trailingPunctuation;
+    this.postfix = postfix;
+  }
+}
 
-    // index the prefix
-    const prefixStart = currIdx;
-    if (text[currIdx] === '{') {
-      currIdx = 1 + text.indexOf('}', currIdx);
-    }
-    const prefix = (prefixStart === currIdx) ? "" : text.substring(prefixStart+1, currIdx-1);
-
-    // the second spaces
-    while (text[currIdx] === ' ') {
-      currIdx++;
-    }
-
-    // index the actual word
-    const wordStart = currIdx;
-    while (currIdx < text.length && text[currIdx].search(/[a-zA-Z0-9]/) !== -1) {
-      currIdx++;
-    }
-    const word = text.substring(wordStart, currIdx);
-
-    // return the word, the prefix, and a stand-in for the postfix
-    return [[word, prefix, ''], currIdx];
+const getNextSplit = (text, currIdx) => {
+  // filter the first spaces/punctuation
+  while (currIdx < text.length && text[currIdx].search(/[a-zA-Z0-9{}]/) === -1) {
+    currIdx++;
   }
 
+  // index the prefix
+  const prefixStart = currIdx;
+  if (text[currIdx] === '{') {
+    currIdx = 1 + text.indexOf('}', currIdx);
+  }
+  const prefix = (prefixStart === currIdx) ? "" : text.substring(prefixStart+1, currIdx-1);
+
+  // filter the second set of spaces/punctuation
+  while (currIdx < text.length && text[currIdx].search(/[a-zA-Z0-9]/) === -1) {
+    currIdx++;
+  }
+
+  // index the actual word
+  const wordStart = currIdx;
+  while (currIdx < text.length && text[currIdx].search(/[^a-zA-Z0-9]/) === -1) {
+    currIdx++;
+  }
+
+  const word = text.substring(wordStart, currIdx);
+
+  // get trailing punctuation
+  const puncStart = currIdx;
+  while (currIdx < text.length && text[currIdx].search(/[ -]/) === -1) {
+    currIdx++;
+  }
+
+  const trailingPunctuation = text.substring(puncStart, currIdx);
+
+  return [new WordComponent(prefix, word, trailingPunctuation, ''), currIdx];
+}
+
+const QuizText = ({ text, userGuesses }) => {
+  // render the words
   let words = [];
 
   // iterate through the text
   let strIdx = 0;
   let wordIdx = 0;
-  while (wordIdx < answerKey.length && strIdx < text.length) {
-    const [elem, newStrIdx] = getNextSplit(strIdx);
+  while (wordIdx < userGuesses.length && strIdx < text.length) {
+    const [component, newStrIdx] = getNextSplit(text, strIdx);
     strIdx = newStrIdx;
 
-    if (elem !== "") {
-      const [word, prefix, postfix] = elem;
-      const isAnswerCorrect = answerKey[wordIdx].toLowerCase() === word[0].toLowerCase();
-      words.push(
-        <RenderedWord
-          word={word}
-          prefix={prefix}
-          postfix={postfix}
-          className={isAnswerCorrect ? "has-text-success" : "has-text-danger"}
-          key={wordIdx} />
-      );
-    }
+    const isAnswerCorrect = userGuesses[wordIdx].toLowerCase() === component.word[0].toLowerCase();
+    const word = (strIdx === text.length || wordIdx !== userGuesses.length - 1)
+                  ? component.word + component.trailingPunctuation
+                  : component.word;
+    words.push(
+      <RenderedWord
+        word={word}
+        prefix={component.prefix}
+        postfix={component.postfix}
+        className={isAnswerCorrect ? "has-text-success" : "has-text-danger"}
+        key={wordIdx} />
+    );
 
     wordIdx++;
   }
 
-  return words;
-}
-
-const makeAnswerKey = (sanitizedText) => {
-  const textByWord = sanitizedText.split(/\s+/);
-  return textByWord.map((word) => word[0]?.toLowerCase());
-}
-
-const QuizText = ({ text, userGuesses }) => {
-
-  // everything between braces is a prefix
-  const sanitizedText = text.replace(/{.?}/g, "");
-
-  // create the answer key
-  const answerKey = makeAnswerKey(sanitizedText);
-
-  // render the words
-  const renderedWords = makeRenderedWords(text, answerKey);
-
-  console.log("Answer key length =", answerKey.length);
-  console.log("Rendered words length =", renderedWords.length);
-
-  // construct the display elements from the user guesses and the text
-  const displayElements = answerKey.map((answer, idx) => {
-    if (userGuesses.length <= idx) {
-      return "";
-    } else {
-      const isCorrect = userGuesses[idx] === answer;
-      // renderedWords[idx].className = isCorrect ? "has-text-success" : "has-text-danger has-text-weight-bold"
-      // renderedWords[idx].key = idx
-      return renderedWords[idx]
-    }
-  });
-
-  return <>{displayElements}</>;
+  // put a space between each word
+  return <>{words}</>;
 };
 
 export default QuizText;
