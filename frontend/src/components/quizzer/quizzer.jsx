@@ -25,21 +25,6 @@ const Quizzer = () => {
     e.target.value = "";
   };
 
-  // const getLetterFeedback = () => {
-  //   return expectedInput.split("").map((char, i) => {
-  //     let className = "has-text-grey-light";
-  //     if (userInputToken) {
-  //       className =
-  //         userInputToken === char ? "has-text-success" : "has-text-danger has-text-weight-bold";
-  //     }
-  //     return (
-  //       <span key={i} className={className}>
-  //         {userInputToken || "_"}
-  //       </span>
-  //     );
-  //   });
-  // };
-
   return (
     <>
       <div className="section">

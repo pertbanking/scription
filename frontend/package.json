@@ -4,9 +4,6 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "bulma": "^1.0.4",
     "npm-run-all": "^4.1.5",
     "react": "^18.3.1",
@@ -18,10 +15,11 @@
     "xml2js": "^0.6.2"
   },
   "scripts": {
-    "start": "npm-run-all -p start-react watch-css",
-    "start-react": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --detectOpenHandles",
+    "start": "npm-run-all -p start-vite watch-css",
+    "start-vite": "vite",
+    "build": "vite build",
+    "serve": "vite run preview",
+    "test": "vitest",
     "eject": "react-scripts eject",
     "build-css": "sass --load-path=node_modules src/sass:src/css",
     "watch-css": "npm run build-css && sass --watch --load-path=node_modules src/sass:src/css",
@@ -47,6 +45,12 @@
     ]
   },
   "devDependencies": {
-    "prettier": "3.3.3"
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "prettier": "3.3.3",
+    "vite": "^7.0.6",
+    "vitest": "^3.2.4"
   }
 }
