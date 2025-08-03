@@ -5,15 +5,17 @@
 // File creation date: 06 July 2025
 // File creator: Joshua Petrin
 
-const RenderedWord = ({word, prefix, postfix, className}) => {
+const RenderedWord = ({ word, prefix, postfix, className }) => {
   // TODO: Make prettier
-  return (<>
-      {prefix? <sup>{prefix}</sup> : ""}
+  return (
+    <>
+      {prefix ? <sup>{prefix}</sup> : ""}
       <span className={className}>{word}</span>
-      {postfix? <sup>{postfix}</sup> : ""}
+      {postfix ? <sup>{postfix}</sup> : ""}
       <span> </span>
-    </>);
-}
+    </>
+  );
+};
 
 class WordComponent {
   constructor(prefix, word, trailingPunctuation, postfix) {
@@ -26,16 +28,20 @@ class WordComponent {
 
 const getNextSplit = (text, currIdx) => {
   // filter the first spaces/punctuation
-  while (currIdx < text.length && text[currIdx].search(/[a-zA-Z0-9{}]/) === -1) {
+  while (
+    currIdx < text.length &&
+    text[currIdx].search(/[a-zA-Z0-9{}]/) === -1
+  ) {
     currIdx++;
   }
 
   // index the prefix
   const prefixStart = currIdx;
-  if (text[currIdx] === '{') {
-    currIdx = 1 + text.indexOf('}', currIdx);
+  if (text[currIdx] === "{") {
+    currIdx = 1 + text.indexOf("}", currIdx);
   }
-  const prefix = (prefixStart === currIdx) ? "" : text.substring(prefixStart+1, currIdx-1);
+  const prefix =
+    prefixStart === currIdx ? "" : text.substring(prefixStart + 1, currIdx - 1);
 
   // filter the second set of spaces/punctuation
   while (currIdx < text.length && text[currIdx].search(/[a-zA-Z0-9]/) === -1) {
@@ -58,8 +64,8 @@ const getNextSplit = (text, currIdx) => {
 
   const trailingPunctuation = text.substring(puncStart, currIdx);
 
-  return [new WordComponent(prefix, word, trailingPunctuation, ''), currIdx];
-}
+  return [new WordComponent(prefix, word, trailingPunctuation, ""), currIdx];
+};
 
 const QuizText = ({ text, userGuesses }) => {
   // render the words
@@ -72,17 +78,20 @@ const QuizText = ({ text, userGuesses }) => {
     const [component, newStrIdx] = getNextSplit(text, strIdx);
     strIdx = newStrIdx;
 
-    const isAnswerCorrect = userGuesses[wordIdx].toLowerCase() === component.word[0].toLowerCase();
-    const word = (strIdx === text.length || wordIdx !== userGuesses.length - 1)
-                  ? component.word + component.trailingPunctuation
-                  : component.word;
+    const isAnswerCorrect =
+      userGuesses[wordIdx].toLowerCase() === component.word[0].toLowerCase();
+    const word =
+      strIdx === text.length || wordIdx !== userGuesses.length - 1
+        ? component.word + component.trailingPunctuation
+        : component.word;
     words.push(
       <RenderedWord
         word={word}
         prefix={component.prefix}
         postfix={component.postfix}
         className={isAnswerCorrect ? "has-text-success" : "has-text-danger"}
-        key={wordIdx} />
+        key={wordIdx}
+      />,
     );
 
     wordIdx++;

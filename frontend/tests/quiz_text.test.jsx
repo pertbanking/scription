@@ -5,7 +5,7 @@
 // File creation date: 18 July 2025
 // File creator: Joshua Petrin
 
-import "@testing-library/jest-dom/matchers"
+import "@testing-library/jest-dom/matchers";
 import { render, screen } from "@testing-library/react";
 import QuizText from "../src/components/quizzer/quiz_text";
 
@@ -86,7 +86,9 @@ test.skip("Don't render verse numbers at verse end", () => {
 
 test("Too many user guesses", () => {
   let text = "Short and sweet!";
-  render(<QuizText text={text} userGuesses={"whatdidyoujustsaytomeyoulittle"} />);
+  render(
+    <QuizText text={text} userGuesses={"whatdidyoujustsaytomeyoulittle"} />,
+  );
   const linkElements = screen.getAllByText(/./); // get every element
   expect(linkElements.length).toEqual(3);
 });
