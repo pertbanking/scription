@@ -7,10 +7,17 @@
 
 "use strict";
 
+require("dotenv").config();
 const axios = require("axios");
 
-const ESV_TOKEN = "blah";
+const ESV_TOKEN = process.env.ESV_API_TOKEN;
 const ESV_API_URL = "https://api.esv.org/v3/passage/text";
+
+if (!ESV_TOKEN) {
+  throw new Error(
+    "ESV_API_TOKEN environment variable is required. Please set it in your .env file.",
+  );
+}
 
 class BibleTranslation {
   constructor() {
@@ -39,8 +46,8 @@ BibleTranslation.prototype.getVerse = async (book, chapter, verse) => {
         "include-passage-references": "false",
       }
     });
-  
-  return response.data["passages"][0].strip();
+
+  return response.data["passages"][0].trim();
 };
 
 const getEsv = () => {
