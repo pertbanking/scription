@@ -90,6 +90,8 @@ export namespace Book {
    * @param str The string to convert (case-insensitive)
    * @returns The corresponding Book enum value
    * @throws Error if the string doesn't match any book
+   * 
+   * @todo Need to add plausible substitutes for the book names (e.g. "psalm" for "psalms")
    */
   export function toBook(str: string): Book {
     const normalized = str.toLowerCase().trim();

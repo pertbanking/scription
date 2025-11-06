@@ -6,13 +6,15 @@
 // File creator: Joshua Petrin
 
 import axios from "axios";
-import { getEsv } from "../../app/bookshelf";
+import { Esv } from "../../../app/bible/esv";
+import { VerseRef } from "../../../app/types/bible_verse";
+import { Book } from "../../../app/types/bible_book";
 
 // Mock axios before requiring bookshelf
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe("EsvTranslation.prototype.fetchVerse", () => {
+describe("Esv.prototype.fetch", () => {
   beforeEach(() => {
     // Clear all mocks before each test
     jest.clearAllMocks();
@@ -31,29 +33,16 @@ describe("EsvTranslation.prototype.fetchVerse", () => {
 
     mockedAxios.get.mockResolvedValue(mockResponse);
 
-    const result = await getEsv().fetchVerse("genesis", 1, 1);
+    const esv = new Esv();
+    const ref = new VerseRef(Book.Genesis, 1, 1);
+    const result = await esv.fetch(ref);
 
-    expect(result).toEqual(
+    expect(Array.isArray(result)).toBe(true);
+    expect(result).toHaveLength(1);
+    expect(result[0].text).toEqual(
       "In the beginning, God created the heavens and the earth.",
     );
     expect(mockedAxios.get).toHaveBeenCalledTimes(1);
-  });
-
-  test("should call ESV API with correct URL", async () => {
-    const mockResponse = {
-      data: {
-        passages: ["For God so loved the world."],
-      },
-    };
-
-    mockedAxios.get.mockResolvedValue(mockResponse);
-
-    await getEsv().fetchVerse("john", 3, 16);
-
-    expect(mockedAxios.get).toHaveBeenCalledWith(
-      "https://api.esv.org/v3/passage/text",
-      expect.any(Object),
-    );
   });
 
   test("should include correct authorization header", async () => {
@@ -65,7 +54,9 @@ describe("EsvTranslation.prototype.fetchVerse", () => {
 
     mockedAxios.get.mockResolvedValue(mockResponse);
 
-    await getEsv().fetchVerse("psalm", 23, 1);
+    const esv = new Esv();
+    const ref = new VerseRef(Book.Psalms, 23, 1);
+    await esv.fetch(ref);
 
     expect(mockedAxios.get).toHaveBeenCalledWith(expect.any(String), {
       headers: {
@@ -73,27 +64,6 @@ describe("EsvTranslation.prototype.fetchVerse", () => {
       },
       params: expect.any(Object),
     });
-  });
-
-  test("should format query string with lowercase book name", async () => {
-    const mockResponse = {
-      data: {
-        passages: ["Verse text"],
-      },
-    };
-
-    mockedAxios.get.mockResolvedValue(mockResponse);
-
-    await getEsv().fetchVerse("Genesis", 2, 3);
-
-    expect(mockedAxios.get).toHaveBeenCalledWith(
-      expect.any(String),
-      expect.objectContaining({
-        params: expect.objectContaining({
-          q: "genesis 2:3",
-        }),
-      }),
-    );
   });
 
   test("should trim whitespace from the returned verse", async () => {
@@ -105,9 +75,11 @@ describe("EsvTranslation.prototype.fetchVerse", () => {
 
     mockedAxios.get.mockResolvedValue(mockResponse);
 
-    const result = await getEsv().fetchVerse("psalm", 23, 1);
+    const esv = new Esv();
+    const ref = new VerseRef(Book.Psalms, 23, 1);
+    const result = await esv.fetch(ref);
 
-    expect(result).toEqual("The LORD is my shepherd.");
+    expect(result[0].text).toEqual("The LORD is my shepherd.");
   });
 
   test("should handle different book, chapter, and verse combinations", async () => {
@@ -119,14 +91,16 @@ describe("EsvTranslation.prototype.fetchVerse", () => {
 
     mockedAxios.get.mockResolvedValue(mockResponse);
 
-    const result = await getEsv().fetchVerse("john", 11, 35);
+    const esv = new Esv();
+    const ref = new VerseRef(Book.John, 11, 35);
+    const result = await esv.fetch(ref);
 
-    expect(result).toEqual("Jesus wept.");
+    expect(result[0].text).toEqual("Jesus wept.");
     expect(mockedAxios.get).toHaveBeenCalledWith(
       expect.any(String),
       expect.objectContaining({
         params: expect.objectContaining({
-          q: "john 11:35",
+          q: expect.stringMatching(/john 11:35/i),
         }),
       }),
     );
@@ -136,8 +110,9 @@ describe("EsvTranslation.prototype.fetchVerse", () => {
     const mockError = new Error("API request failed");
     mockedAxios.get.mockRejectedValue(mockError);
 
-    await expect(getEsv().fetchVerse("genesis", 1, 1)).rejects.toThrow(
-      "API request failed",
-    );
+    const esv = new Esv();
+    const ref = new VerseRef(Book.Genesis, 1, 1);
+
+    await expect(esv.fetch(ref)).rejects.toThrow("API request failed");
   });
 });

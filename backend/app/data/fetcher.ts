@@ -6,7 +6,7 @@
 // File creation date: 03 August 2025
 // File creator: Joshua Petrin
 
-import { getEsv } from "../bookshelf";
+import { getEsv } from "../bible/bible";
 
 /**
  * Command-line script to fetch a book of the Bible
